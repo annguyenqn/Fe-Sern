@@ -11,12 +11,14 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 import { path } from '../utils'
 
 import Home from '../routes/Home';
-import Login from '../routes/Login';
+// import Login from '../routes/Login';
 import Header from './Header/Header';
 import System from '../routes/System';
+import Login from '../containers/Auth/Login'
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
+// import './src/styles/styles.scss'
 
 class App extends Component {
 
