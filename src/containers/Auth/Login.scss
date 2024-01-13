@@ -14,30 +14,51 @@
         height: 70vh;
         display: flex;
         justify-content: center;
+        height: 450px;
 
         .login-content {
             // background-color: ;
-            margin-top: 10px;
+            // margin-top: 10px;
             width: 80%;
-            height: 60%;
-            padding: 10px 10px 0px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            // padding: 10px 10px 0px 10px;
 
             .text-login {
-                font-weight: 600;
-                font-size: larger;
+                margin-top: 15px;
+                font-weight: 700;
                 text-align: center;
-                padding-top: 10px;
-                font-size: 25px;
+                font-size: 30px;
             }
 
             .login-input {
-                margin: 7px 0px;
+                // margin: 7px 0px;
+                // background-color: red;
+                height: 60px;
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
             }
 
             .but-login {
                 width: 100%;
-                margin: 10px 0px;
+                height: 35px;
+                margin: 20px 0px;
+                border-radius: 200px;
 
+            }
+
+            .input-Pass {
+                display: flex;
+                position: relative;
+
+                .eyes {
+                    // background-color: aqua;
+                    position: absolute;
+                    right: 10px;
+                    top: 5px;
+                }
             }
 
             .forgot-pass {
