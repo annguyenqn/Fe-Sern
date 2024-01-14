@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import './UserManage.scss'
 class ModalUser extends Component {
 
     constructor(props) {
@@ -10,7 +11,8 @@ class ModalUser extends Component {
             firstName: '',
             password: '',
             lastName: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            errMess: ''
         }
     }
 
@@ -21,9 +23,33 @@ class ModalUser extends Component {
         this.props.toggle();
     }
     handleOnChange = (event, id) => {
-        console.log('event', event.target.value, id);
+        let copyState = { ...this.state };
+        copyState[id] = event.target.value;
+        this.setState({
+            ...copyState
+        }, () => {
+            // console.log('check state', id);
+        })
     }
-
+    validateForm = () => {
+        let isValid = true;
+        let arrInput = ['email', 'firstName', 'password', 'lastName', 'phoneNumber'];
+        for (let i = 0; i < arrInput.length; i++) {
+            if (!this.state[arrInput[i]]) {
+                isValid = false;
+                alert('missing param:' + ' ' + arrInput[i]);
+                break;
+            }
+        }
+        return isValid;
+    }
+    handleAddNewUser = () => {
+        let isValid = this.validateForm();
+        if (isValid == true) {
+            console.log('data modal', this.state);
+            this.props.createNewUser(this.state);
+        }
+    }
     render() {
         let UserArr = [
             {
@@ -65,7 +91,7 @@ class ModalUser extends Component {
                     size='lg'
                     centered
                 >
-                    <ModalHeader toggle={this.toggle}>Create new user</ModalHeader>
+                    <ModalHeader className='bg-light text-dark' toggle={this.toggle}>Create new user</ModalHeader>
                     <ModalBody>
                         <div class="container">
                             <div class="row">
@@ -76,32 +102,21 @@ class ModalUser extends Component {
                                                 return (
                                                     <>
                                                         <label for="exampleInputEmail1" class="form-label">{item.Header}</label>
-                                                        <input onChange={(event) => this.handleOnChange(event, item.name)} type={item.type} class="form-control" name={item.name} aria-describedby="emailHelp" />
+                                                        <br />
+                                                        {/* <span style={{ color: "red" }}>* Not Empty</span> */}
+                                                        <input
+                                                            onChange={(event) => this.handleOnChange(event, item.name)}
+                                                            type={item.type}
+                                                            className="form-control"
+                                                            value={this.state[item.name]}
+                                                            name={item.name}
+                                                            aria-describedby="emailHelp" />
                                                     </>
                                                 )
                                             })
                                         }
 
                                     </div>
-                                    {/* <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" name="firstName" aria-describedby="emailHelp" />
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" name="lastName" aria-describedby="emailHelp" />
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" name="phoneNumber" aria-describedby="emailHelp" />
-
-                                    </div> */}
                                     {/* <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Sex</label>
                                         <select name="gender" class="form-control">
@@ -122,7 +137,7 @@ class ModalUser extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button className='px-3' color="primary" onClick={() => this.toggle()}>
+                        <Button className='px-3' color="primary" onClick={() => this.handleAddNewUser()}>
                             Submit
                         </Button>{' '}
                         <Button className='px-3' color="secondary" onClick={() => this.toggle()}>

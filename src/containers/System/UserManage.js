@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss'
-import { getAllUser } from '../../services/userService'
+import { getAllUser, addNewUser } from '../../services/userService'
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import ModalUser from "./ModalUser"
@@ -18,6 +18,9 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
+        await this.getAllUserFromReact()
+    }
+    getAllUserFromReact = async () => {
         let res = await getAllUser('ALL');
         // console.log('get user from nodejs', res);
         if (res && res.errCode === 0) {
@@ -36,12 +39,32 @@ class UserManage extends Component {
             isOpenModalUser: !this.state.isOpenModalUser
         })
     }
+    createNewUser = async (data) => {
+        try {
+            let res = await addNewUser(data)
+            // console.log('respon create new user', res);
+            if (res && res.errCode != 0) {
+                alert(res.message)
+            } else {
+                await this.getAllUserFromReact();
+                this.setState({
+                    isOpenModalUser: false
+                })
+            }
+        } catch (e) {
+            console.log('create new user err:', e);
+        }
+        // console.log('this is data', data);
+    }
     render() {
         let arrUsers = this.state.arrUsers
         return (
             <>
                 <div className="user-container  ">
-                    <ModalUser isOpen={this.state.isOpenModalUser} toggle={this.toggleModal} />
+                    <ModalUser
+                        isOpen={this.state.isOpenModalUser}
+                        toggle={this.toggleModal}
+                        createNewUser={this.createNewUser} />
                     <div className='title text-center'>Manange Users</div>
                     <div className='mx-1'>
                         <button onClick={() => { this.handleAddNewUser() }} className='btn btn-primary px-3 '>Add New User</button>
