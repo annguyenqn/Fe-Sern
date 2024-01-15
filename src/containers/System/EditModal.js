@@ -4,37 +4,25 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './UserManage.scss'
 import { emitter } from '../../utils/emitter'
 
-class ModalUser extends Component {
+class EditModal extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            firstName: '',
-            password: '',
-            lastName: '',
-            phoneNumber: '',
-            errMess: ''
+            id: this.props.user.id,
+            email: this.props.user.email,
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            phoneNumber: this.props.user.phoneNumber,
         }
-        this.listenToEmitter();
     }
-    listenToEmitter() {
-        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
-            this.setState({
-                email: '',
-                firstName: '',
-                password: '',
-                lastName: '',
-                phoneNumber: '',
-                errMess: ''
-            })
-            console.log('emmmit');
-        })
-    }
+
 
     async componentDidMount() {
 
+
     }
+
     toggle = () => {
         this.props.toggle();
     }
@@ -44,27 +32,12 @@ class ModalUser extends Component {
         this.setState({
             ...copyState
         }, () => {
-            // console.log('check state', id);
         })
     }
-    validateForm = () => {
-        let isValid = true;
-        let arrInput = ['email', 'firstName', 'password', 'lastName', 'phoneNumber'];
-        for (let i = 0; i < arrInput.length; i++) {
-            if (!this.state[arrInput[i]]) {
-                isValid = false;
-                alert('missing param:' + ' ' + arrInput[i]);
-                break;
-            }
-        }
-        return isValid;
-    }
-    handleAddNewUser = () => {
-        let isValid = this.validateForm();
-        if (isValid == true) {
-            // console.log('data modal', this.state);
-            this.props.createNewUser(this.state);
-        }
+    handleUpdateUser = () => {
+        // console.log('child state', this.state);
+        this.props.editUser(this.state);
+
     }
     render() {
         let UserArr = [
@@ -81,12 +54,6 @@ class ModalUser extends Component {
 
             },
             {
-                Header: 'Password',
-                name: 'password',
-                type: 'password',
-
-            },
-            {
                 Header: 'Last Name',
                 name: 'lastName',
                 type: 'text',
@@ -99,6 +66,7 @@ class ModalUser extends Component {
 
             },
         ]
+
         return (
             <>
                 <Modal
@@ -107,7 +75,7 @@ class ModalUser extends Component {
                     size='lg'
                     centered
                 >
-                    <ModalHeader className='bg-light text-dark' toggle={this.toggle}>Create new user</ModalHeader>
+                    <ModalHeader className='bg-light text-dark' toggle={this.toggle}>Edit user</ModalHeader>
                     <ModalBody>
                         <div class="container">
                             <div class="row">
@@ -117,16 +85,19 @@ class ModalUser extends Component {
                                             UserArr.map((item, index) => {
                                                 return (
                                                     <>
-                                                        <label for="exampleInputEmail1" class="form-label">{item.Header}</label>
-                                                        <br />
-                                                        {/* <span style={{ color: "red" }}>* Not Empty</span> */}
-                                                        <input
-                                                            onChange={(event) => this.handleOnChange(event, item.name)}
-                                                            type={item.type}
-                                                            className="form-control"
-                                                            value={this.state[item.name]}
-                                                            name={item.name}
-                                                            aria-describedby="emailHelp" />
+                                                        <div key={index}>
+                                                            <label for="exampleInputEmail1" class="form-label">{item.Header}</label>
+                                                            <br />
+                                                            {/* <span style={{ color: "red" }}>* Not Empty</span> */}
+                                                            <input
+                                                                onChange={(event) => this.handleOnChange(event, item.name)}
+                                                                type={item.type}
+                                                                className="form-control"
+                                                                value={this.state[item.name]}
+                                                                name={item.name}
+                                                                disabled={item.name === 'email'}
+                                                                aria-describedby="emailHelp" />
+                                                        </div>
                                                     </>
                                                 )
                                             })
@@ -153,8 +124,8 @@ class ModalUser extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button className='px-3' color="primary" onClick={() => this.handleAddNewUser()}>
-                            Submit
+                        <Button className='px-3' color="primary" onClick={() => this.handleUpdateUser()}>
+                            Update
                         </Button>{' '}
                         <Button className='px-3' color="secondary" onClick={() => this.toggle()}>
                             Cancels
@@ -177,4 +148,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(EditModal);

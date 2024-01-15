@@ -13,7 +13,7 @@ class Login extends Component {
             username: '',
             password: '',
             messege: '',
-            eyes: true,
+            eyes: false,
         }
     }
     handleOnchangeInput = (event) => {
