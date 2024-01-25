@@ -1,0 +1,221 @@
+.home-header-container {
+    height: 90px;
+    width: 100%;
+    padding: 0 20px;
+    background: white;
+    z-index: 2000;
+    position: fixed;
+    top: 0px;
+
+    .home-header-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+
+        .left-content {
+            width: 20%;
+            display: flex;
+            align-items: center;
+
+            i {
+                font-size: 25px;
+            }
+
+            .header-logo {
+                // background-color: aqua;
+                height: 100%;
+                width: 100%;
+
+                .logo-img {
+                    height: 100%;
+                    width: 90%;
+                }
+            }
+        }
+
+        .center-content {
+            margin-left: 20px;
+            width: 55%;
+            // border: 1px solid green;
+            display: flex;
+            gap: 40px;
+            justify-content: space-between;
+            align-items: center;
+
+            .child-content {
+                width: 25%;
+                height: 70%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                b {
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    background-color: gainsboro;
+                    border-radius: 90px;
+                }
+            }
+        }
+
+        .right-content {
+            width: 25%;
+            // border: 1px solid yellow;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+
+            i {
+                margin-right: 10px;
+            }
+
+            .support {
+                padding-right: 30px;
+                cursor: pointer;
+
+            }
+
+            .language-vi {
+                cursor: pointer;
+
+                // opacity: 0.2;
+                &.active {
+                    span {
+                        // opacity: 1;
+                        color: #49bce2;
+                    }
+                }
+
+                &:hover {
+                    opacity: 0.2;
+
+                }
+            }
+
+            .language-en {
+                margin: 0 10px;
+                cursor: pointer;
+
+                // opacity: 0.2;
+                &.active {
+                    span {
+                        // opacity: 1;
+                        color: #49bce2;
+                    }
+                }
+
+                &:hover {
+                    opacity: 0.2;
+                }
+            }
+        }
+
+    }
+
+}
+
+.section-Doctors {
+    padding-top: 20px;
+    height: 450px;
+    background-color: whitesmoke;
+    // border: 1px solid red;
+
+    .Doctors-container {
+        margin: 0 50px;
+        display: flex;
+        flex-direction: column;
+        background-color: whitesmoke;
+
+        .Doctors-header {
+            height: 60px;
+            // background-color: blue;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .Doctors-header-body {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                span {
+                    font-size: x-large;
+                    font-weight: 600;
+                    height: 40px;
+                    // background-color: aqua;
+                }
+
+                button {
+                    border: none;
+                    width: 90px;
+                    height: 40px;
+                    margin-right: 20px;
+                    background-color: white;
+
+                    &:hover {
+                        background-color: darkgrey;
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
+    .Doctors-body {
+        // background-color: red;
+        padding-bottom: 30px;
+
+        .img-customize {
+            height: 320px;
+            // border: 1px solid blue;
+
+            .doctor-img {
+                background-color: white;
+                height: 340px;
+                width: 400px;
+                // border: 1px solid red;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 150px;
+                }
+
+                h4 {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+.slick-prev {
+    border: #d7d7d7 !important;
+    left: -15px !important;
+    z-index: 1000 !important;
+    height: 50px !important;
+    width: 50px !important;
+    border-radius: 50px;
+    background-color: gainsboro !important;
+}
+
+.slick-next {
+    background-color: gainsboro !important;
+    right: 0px !important;
+    height: 50px !important;
+    width: 50px !important;
+    border-radius: 50px;
+}

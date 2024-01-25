@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Specilty.scss'
+import './MedicalFacilities.scss'
 import { FormattedMessage } from 'react-intl'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import speciltyImg from "../../../assets/images/Specilty/Medicalspecialties.jpg"
+import MedicalFacilitiesImg from "../../../assets/images/MedicalFacilities/hospital.jpg"
 
-class Specilty extends Component {
+class MedicalFacilities extends Component {
 
 
     render() {
@@ -17,47 +17,50 @@ class Specilty extends Component {
             speed: 500,
             slidesToShow: 4,
             slidesToScroll: 1,
+            // nextArrow: <SampleNextArrow />,
+            // prevArrow: <SamplePrevArrow />
+
         };
         return (
             <>
-                <div className='section-specilty'>
-                    <div className='specilty-container'>
-                        <div className='specilty-header'>
-                            <div className='specilty-header-body'>
-                                <span>Chuyên khoa phổ biến</span>
+                <div className='section-MedicalFacilities'>
+                    <div className='MedicalFacilities-container'>
+                        <div className='MedicalFacilities-header'>
+                            <div className='MedicalFacilities-header-body'>
+                                <span>Cơ sở ý tế nổi bật</span>
                                 <button >Xem thêm</button>
                             </div>
 
                         </div>
-                        <div className='specilty-body'>
+                        <div className='MedicalFacilities-body'>
                             <Slider {...settings}>
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 1</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 1</h4>
                                 </div>
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 2</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 2</h4>
                                 </div >
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 3</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 3</h4>
                                 </div>
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 4</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 4</h4>
                                 </div>
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 5</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 5</h4>
                                 </div>
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 6</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 6</h4>
                                 </div>
                                 <div className='img-customize'>
-                                    <img src={speciltyImg}></img>
-                                    <h4>Cơ sương khớp 7</h4>
+                                    <img src={MedicalFacilitiesImg}></img>
+                                    <h4>Cơ sở 7</h4>
                                 </div>
                             </Slider>
                         </div>
@@ -83,4 +86,4 @@ class Specilty extends Component {
 //     };
 // };
 
-export default Specilty;
+export default MedicalFacilities;

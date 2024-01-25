@@ -1,16 +1,16 @@
-.section-specilty {
+.section-MedicalFacilities {
     padding-top: 20px;
     height: 390px;
-    background-color: whitesmoke;
+    background-color: white;
     // border: 1px solid red;
 
-    .specilty-container {
+    .MedicalFacilities-container {
         margin: 0 50px;
         display: flex;
         flex-direction: column;
-        background-color: whitesmoke;
+        background-color: white;
 
-        .specilty-header {
+        .MedicalFacilities-header {
             height: 60px;
             // background-color: blue;
             width: 100%;
@@ -18,7 +18,7 @@
             align-items: center;
             margin-bottom: 20px;
 
-            .specilty-header-body {
+            .MedicalFacilities-header-body {
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
@@ -35,28 +35,22 @@
                     width: 90px;
                     height: 40px;
                     margin-right: 20px;
-                    background-color: white;
 
                     &:hover {
                         background-color: darkgrey;
+
                     }
                 }
 
-                .img-customize {
-                    // border: 1px solid blue;
-                    height: 300px;
-                    width: 70%;
-                    margin-right: 10px !important;
 
-                    img {
-                        width: 100%;
-                    }
-                }
             }
-
 
         }
 
+        .img-customize {
+            // border: 1px solid blue;
+            height: 300px;
+        }
     }
 }
 
@@ -76,4 +70,12 @@
     height: 50px !important;
     width: 50px !important;
     border-radius: 50px;
+}
+
+.img-customize {
+    img {
+        height: 250px;
+        width: 430px;
+        // margin-right: 20px !important;
+    }
 }
