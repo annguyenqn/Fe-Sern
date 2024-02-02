@@ -18,6 +18,7 @@ class ModalUser extends Component {
         }
         this.listenToEmitter();
     }
+    //dùng emitter để lắng nghe sự kiện clear state trong input
     listenToEmitter() {
         emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
             this.setState({
@@ -39,6 +40,7 @@ class ModalUser extends Component {
         this.props.toggle();
     }
     handleOnChange = (event, id) => {
+        //copy state hiện tại để tránh code cứng state
         let copyState = { ...this.state };
         copyState[id] = event.target.value;
         this.setState({
@@ -63,6 +65,7 @@ class ModalUser extends Component {
         let isValid = this.validateForm();
         if (isValid == true) {
             // console.log('data modal', this.state);
+            // Lấy props create new user từ component cha và truyền cho nó state user để add
             this.props.createNewUser(this.state);
         }
     }

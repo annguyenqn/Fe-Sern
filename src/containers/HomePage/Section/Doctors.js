@@ -9,16 +9,46 @@ import DoctorsImg from "../../../assets/images/Doctors/doctor.jpg"
 
 class Doctors extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isSmallScreen: false,
+            slidesToShow: 3
+        }
+        this.handleResize = this.handleResize.bind(this);
+    }
+    handleResize() {
+        this.setState({
+            isSmallScreen: window.innerWidth < 1000,
+        });
+    }
+    componentDidMount() {
+        window.addEventListener('resize', this.handleResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
 
     render() {
+        // const { isSmallScreen } = this.state.isSmallScreen;
+        console.log('this is width', this.state.isSmallScreen);
+        let slideShow = 3;
+        if (this.state.isSmallScreen === true) {
+            slideShow = 1;
+        }
+        else {
+            slideShow = 3;
+        }
         let settings = {
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 4,
+            slidesToShow: slideShow,
             slidesToScroll: 1,
         };
         return (
+
             <>
                 <div className='section-Doctors'>
                     <div className='Doctors-container'>

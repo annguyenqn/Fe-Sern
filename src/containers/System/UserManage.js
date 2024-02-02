@@ -117,11 +117,13 @@ class UserManage extends Component {
     EditUser = async (data) => {
         // console.log('user edit', data);
         try {
+            // gọi api editUser truyền pram để update
             let res = await editUser(data)
             console.log('edit user', res);
             if (res && res.errCode != 0) {
                 alert(res.message)
             } else {
+                //Get all user sau khi update để reload lại trang show user
                 await this.getAllUserFromReact();
                 this.setState({
                     isOpenModalEdit: false

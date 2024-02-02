@@ -8,18 +8,42 @@ import Slider from "react-slick";
 import MedicalFacilitiesImg from "../../../assets/images/MedicalFacilities/hospital.jpg"
 
 class MedicalFacilities extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isSmallScreen: false,
+            slidesToShow: 3
+        }
+        this.handleResize = this.handleResize.bind(this);
+    }
+    handleResize() {
+        this.setState({
+            isSmallScreen: window.innerWidth < 1000,
+        });
+    }
+    componentDidMount() {
+        window.addEventListener('resize', this.handleResize);
+    }
 
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
 
     render() {
+
+        let slideShow = 3;
+        if (this.state.isSmallScreen === true) {
+            slideShow = 1;
+        }
+        else {
+            slideShow = 3;
+        }
         let settings = {
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 4,
+            slidesToShow: slideShow,
             slidesToScroll: 1,
-            // nextArrow: <SampleNextArrow />,
-            // prevArrow: <SamplePrevArrow />
-
         };
         return (
             <>

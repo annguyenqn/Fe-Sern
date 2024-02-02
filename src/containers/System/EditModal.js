@@ -26,6 +26,7 @@ class EditModal extends Component {
     toggle = () => {
         this.props.toggle();
     }
+    //handle input
     handleOnChange = (event, id) => {
         let copyState = { ...this.state };
         copyState[id] = event.target.value;

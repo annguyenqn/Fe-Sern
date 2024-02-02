@@ -32,9 +32,10 @@ const appReducer = (state = initialState, action) => {
                 }
             }
         case actionTypes.CHANGE_LANGUAGE:
-            console.log('check redux:', action);
             return {
+                /// copy state hiện tại
                 ...state,
+                //truy cập biến language trong action
                 language: action.language,
             }
         default:
