@@ -48,7 +48,6 @@ class App extends Component {
                     <div className="main-container">
                         {/* <ConfirmModal /> */}
                         {this.props.isLoggedIn && <Header />}
-
                         <span className="content-container">
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
@@ -58,7 +57,6 @@ class App extends Component {
                                 <Route path={path.BOOKING} component={(Booking)} />
                             </Switch>
                         </span>
-
                         <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}

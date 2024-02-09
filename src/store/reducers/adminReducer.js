@@ -1,8 +1,10 @@
+import { compact } from 'lodash';
 import actionTypes from '../actions/actionTypes';
 const initialState = {
     genders: [],
     roles: [],
-    position: []
+    position: [],
+    users: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -42,6 +44,18 @@ const adminReducer = (state = initialState, action) => {
             copyStateRole.roles = action.data
             return {
                 ...copyStateRole,
+            }
+        case actionTypes.FETCH_ALL_USER_SUCCESS:
+            // console.log('this is rol');
+            let copyUsers = { ...state }
+            copyUsers.users = action.users
+            return {
+                ...copyUsers,
+            }
+        case actionTypes.FETCH_ALL_USER_FAILED:
+            state.users = []
+            return {
+                ...state,
             }
         default:
             return state;

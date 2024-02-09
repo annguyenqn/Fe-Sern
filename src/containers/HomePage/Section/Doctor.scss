@@ -1,9 +1,28 @@
+// Variables
+$breakpoint-sm: 576px; // Small screens
+$breakpoint-md: 768px; // Medium screens
+$breakpoint-lg: 992px; // Large screens
+$breakpoint-xl: 1200px; // Extra-large screens
+
+// Media Query Mixins
+@mixin respond-to($breakpoint) {
+    @media only screen and (min-width: $breakpoint) {
+        @content;
+    }
+}
+
+// @include respond-to($breakpoint-md) {
+//     .home-header-content {
+//         display: flex;
+//     }
+// }
+
 .home-header-container {
     height: 90px;
     width: 100%;
-    padding: 0 20px;
-    background: white;
-    z-index: 2000;
+    // padding: 0 20px;
+    background-color: white;
+    z-index: 1000;
     position: fixed;
     top: 0px;
 
@@ -12,9 +31,8 @@
         height: 100%;
         display: flex;
 
-
         .left-content {
-            width: 20%;
+            // width: 20%;
             display: flex;
             align-items: center;
 
@@ -23,7 +41,6 @@
             }
 
             .header-logo {
-                // background-color: aqua;
                 height: 100%;
                 width: 100%;
 
@@ -35,16 +52,17 @@
         }
 
         .center-content {
-            margin-left: 20px;
-            width: 55%;
+            width: auto;
             // border: 1px solid green;
+            // background-color: #49bce2;
             display: flex;
             gap: 40px;
             justify-content: space-between;
             align-items: center;
 
             .child-content {
-                width: 25%;
+                width: 15rem;
+                // background-color: blueviolet;
                 height: 70%;
                 display: flex;
                 flex-direction: column;
@@ -63,8 +81,8 @@
         }
 
         .right-content {
-            width: 25%;
-            // border: 1px solid yellow;
+            padding-left: 5 0px;
+            // background-color: aquamarine;
             display: flex;
             align-items: center;
             justify-content: center;

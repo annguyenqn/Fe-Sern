@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getAllCode, addNewUser } from '../../services/userService';
+import { getAllCode, addNewUser, getAllUser, deleteUser } from '../../services/userService';
 // export const fetchGenderStart = () => ({
 //     type: actionTypes.FETCH_GENDER_START
 // })
@@ -73,6 +73,38 @@ export const createNewUser = (data) => {
     }
 }
 
+export const fetchAllUserStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllUser("ALL")
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllUserSuccess(res.users));
+            } else {
+                dispatch(fetchAllUserFail());
+            }
+        } catch (e) {
+            dispatch(fetchAllUserFail());
+            console.log(e);
+        }
+    }
+}
+export const deleteUserStart = (id) => {
+    console.log('delete', id);
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteUser(id)
+            if (res && res.errCode === 0) {
+                dispatch(deleteUserSuccess());
+            } else {
+                dispatch(deleteUserFail());
+            }
+        } catch (e) {
+            dispatch(deleteUserFail());
+            console.log(e);
+        }
+    }
+}
+
 export const fetchPositionSuccess = (positionData) => ({
     type: actionTypes.FETCH_POSITION_SUCCESS,
     data: positionData
@@ -103,4 +135,19 @@ export const saveUserSuccess = () => ({
 })
 export const saveUserFail = () => ({
     type: actionTypes.SAVE_USER_FAILED
+})
+
+export const fetchAllUserSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_USER_SUCCESS,
+    users: data
+})
+export const fetchAllUserFail = () => ({
+    type: actionTypes.FETCH_ALL_USER_FAILED
+})
+
+export const deleteUserSuccess = () => ({
+    type: actionTypes.DELETE_USER_SUCCESS,
+})
+export const deleteUserFail = () => ({
+    type: actionTypes.DELETE_USER_FAILED
 })

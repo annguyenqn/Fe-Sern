@@ -5,6 +5,7 @@ import { LANGUAGES } from '../../../utils'
 import { changeLanguageApp } from '../../../store/actions'
 import { getAllCode } from '../../../services/userService'
 import * as actions from "../../../store/actions"
+import TableManageUser from './TableManageUser';
 import './UserRedux.scss'
 class UserRedux extends Component {
 
@@ -48,6 +49,7 @@ class UserRedux extends Component {
             phoneNumber: this.state.phoneNumber,
             position: this.state.position,
         })
+        // this.props.fetchUserRedux();
         // console.log('submit data', this.state);
     }
     checkValidateInput = () => {
@@ -223,7 +225,9 @@ class UserRedux extends Component {
                                         {`.btn { margin-top: 10px;width:100px;} `}
                                     </style>
                                 </button>
-
+                                <div className=' mb-5'>
+                                    <TableManageUser />
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -236,6 +240,8 @@ class UserRedux extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        //biến bên trái sẽ nhận state từ reducer tương ứng, state.[admin or app] , admin or app là reducer được định nghĩa trong file rootReducer
+        // từ đó ta có thể truy cập đến state của reducer tương ứng
         genderRedux: state.admin.genders,
         positionRedux: state.admin.position,
         roleRedux: state.admin.roles,
@@ -248,7 +254,10 @@ const mapDispatchToProps = dispatch => {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
+        //Khi gọi hàm createNewUser sẽ fire 1 action(createNewUser) có param là data
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
+
 
     };
 };

@@ -29,7 +29,6 @@ class Header extends Component {
                             <div className='child-content'>
                                 <div className='' ><b><FormattedMessage id="homeheader.speciality" /></b></div>
                                 <div className=''><FormattedMessage id="homeheader.childspeciality" /></div>
-
                             </div>
                             <div className='child-content'>
                                 <div className='' ><b><FormattedMessage id="homeheader.healthfacilities" /></b></div>

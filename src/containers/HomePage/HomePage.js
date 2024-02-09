@@ -5,14 +5,15 @@ import Specilty from './Section/Specilty';
 import MedicalFacilities from './Section/MedicalFacilities'
 import Doctors from './Section/Doctors'
 import HomeFooter from './HomeFooter/HomeFooter';
+import Header from './Section/Header';
+import './HomePage.scss'
 class HomePage extends Component {
 
     render() {
-
-
         return (
             <>
-                <div>
+                <div className='home'>
+                    <Header />
                     <HomeHeader />
                     <Specilty />
                     <MedicalFacilities />

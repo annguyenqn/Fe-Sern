@@ -17,7 +17,7 @@ class HomeHeader extends Component {
         let language = this.props.language;
         return (
             <>
-                <div className='home-header-container'>
+                {/* <div className='home-header-container'>
                     <div className='home-header-content'>
                         <div className='left-content'>
                             <i className='fas fa-bars bar  '></i>
@@ -49,7 +49,7 @@ class HomeHeader extends Component {
                             <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changeLanguage(LANGUAGES.EN)}>EN</span></div>
                         </div>
                     </div>
-                </div >
+                </div > */}
                 <div className='home-header-banner'>
                     <div className='banner-content'>
                         <div className='content-up'>
@@ -93,8 +93,6 @@ class HomeHeader extends Component {
                 </div>
                 {/* <div className='section1'>
                 </div> */}
-
-
             </>
         );
     }

@@ -206,9 +206,6 @@ class UserManage extends Component {
                             </table>
                         </div>
                     </div>
-
-
-
                 </div>
             </>
         );
