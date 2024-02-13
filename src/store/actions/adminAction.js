@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getAllCode, addNewUser, getAllUser, deleteUser } from '../../services/userService';
+import { getAllCode, addNewUser, getAllUser, deleteUser, editUser } from '../../services/userService';
 // export const fetchGenderStart = () => ({
 //     type: actionTypes.FETCH_GENDER_START
 // })
@@ -60,9 +60,9 @@ export const createNewUser = (data) => {
         try {
             // console.log('check create redux');
             let res = await addNewUser(data)
-            console.log('check create redux', res);
             if (res && res.errCode === 0) {
                 dispatch(saveUserSuccess());
+                dispatch(fetchAllUserStart());
             } else {
                 dispatch(saveUserFail());
             }
@@ -72,7 +72,6 @@ export const createNewUser = (data) => {
         }
     }
 }
-
 export const fetchAllUserStart = () => {
     return async (dispatch, getState) => {
         try {
@@ -89,12 +88,13 @@ export const fetchAllUserStart = () => {
     }
 }
 export const deleteUserStart = (id) => {
-    console.log('delete', id);
+    // console.log('delete', id);
     return async (dispatch, getState) => {
         try {
             let res = await deleteUser(id)
             if (res && res.errCode === 0) {
                 dispatch(deleteUserSuccess());
+                dispatch(fetchAllUserStart());
             } else {
                 dispatch(deleteUserFail());
             }
@@ -104,6 +104,24 @@ export const deleteUserStart = (id) => {
         }
     }
 }
+export const editUserStart = (data) => {
+    // console.log('delete', id);
+    return async (dispatch, getState) => {
+        try {
+            let res = await editUser(data)
+            if (res && res.errCode === 0) {
+                dispatch(editUserSuccess());
+                dispatch(fetchAllUserStart());
+            } else {
+                dispatch(editUserFail());
+            }
+        } catch (e) {
+            dispatch(editUserFail());
+            console.log(e);
+        }
+    }
+}
+
 
 export const fetchPositionSuccess = (positionData) => ({
     type: actionTypes.FETCH_POSITION_SUCCESS,
@@ -150,4 +168,11 @@ export const deleteUserSuccess = () => ({
 })
 export const deleteUserFail = () => ({
     type: actionTypes.DELETE_USER_FAILED
+})
+
+export const editUserSuccess = () => ({
+    type: actionTypes.EDIT_USER_SUCCESS,
+})
+export const editUserFail = () => ({
+    type: actionTypes.EDIT_USER_FAILED,
 })

@@ -6,35 +6,67 @@ import * as actions from "../../../store/actions"
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import actionTypes from '../../../store/actions/actionTypes';
+import EditModal from '../EditModal';
 class TableManageUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            UsersRedux: [],
+            // UsersRedux: this.props.listUser,
+            isOpenModalEdit: false,
+            userEdit: {},
+
         }
     }
-
+    handleEditUser = (item) => {
+        this.setState({
+            isOpenModalEdit: !this.state.isOpenModalEdit,
+            userEdit: item
+        })
+    }
+    toggleModalEdit = () => {
+        this.setState({
+            isOpenModalEdit: !this.state.isOpenModalEdit
+        })
+    }
+    EditUser = (data) => {
+        this.props.editUserRedux(data);
+        this.setState({
+            isOpenModalEdit: !this.state.isOpenModalEdit
+        })
+    }
     async componentDidMount() {
         //fire action khi render lan dau
-        this.props.fetchUserRedux();
+        // this.props.fetchUserRedux();
     }
 
     async componentDidUpdate(prevProbs, prevState, snapshot) {
         //Sau khi update check prevprops với props hiện tại có sự thay đổi ko
         // Nếu có thay đổi thì gán listUsers props cho state userRedux
-        if (prevProbs.listUser !== this.props.listUser) {
-            this.setState({
-                UsersRedux: this.props.listUser,
-            })
-        }
+        // if (prevProbs.listUser !== this.props.listUser) {
+        //     this.setState({
+        //         UsersRedux: this.props.listUser,
+        //     })
+        // }
     }
     render() {
-        // console.log('this is user', this.state.UsersRedux);
-        let Users = this.state.UsersRedux
+        let Users = this.props.listUser
+        // console.log('this is users', this.state.userEdit, this.state.isOpenModalEdit);
         return (
             <>
-                <div className='mt-3'>
+                <div className='table'>
+                    {
+                        //Ta phải kiểm tra trước nếu có nhấn nút edit thì mới render
+                        //Nếu không xét điều kiện thì nó sẽ render trước mà chưa truyền props
+                        this.state.isOpenModalEdit &&
+                        <EditModal
+                            isOpen={this.state.isOpenModalEdit}
+                            toggle={this.toggleModalEdit}
+                            editUser={this.EditUser}
+                            user={this.state.userEdit}
+                        />
+
+                    }
                     <table class="table table-hover ">
                         <thead class="thead-dark">
                             <tr>
@@ -48,7 +80,6 @@ class TableManageUser extends Component {
                         <tbody>
                             <>
                                 {
-
                                     Users && Users.map((item, index) => {
                                         return (
                                             <>
@@ -59,7 +90,7 @@ class TableManageUser extends Component {
                                                     <td className=''>{item.address}</td>
                                                     <td className=' '>
                                                         <button
-                                                            // onClick={() => { this.handleEditUser(item) }}
+                                                            onClick={() => { this.handleEditUser(item) }}
                                                             type="button" className="btn btn-primary w-25 mx-2 "><AiOutlineEdit className='h-50' /></button>
                                                         <button
                                                             onClick={() => this.props.deleteUserRedux(item.id)}
@@ -83,14 +114,15 @@ class TableManageUser extends Component {
 
 const mapStateToProps = state => {
     return {
-        listUser: state.admin.users
+        // listUser: state.admin.users
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
+        // fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
         deleteUserRedux: (id) => dispatch(actions.deleteUserStart(id)),
+        editUserRedux: (data) => dispatch(actions.editUserStart(data)),
     };
 };
 

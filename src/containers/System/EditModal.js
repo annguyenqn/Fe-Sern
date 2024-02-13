@@ -9,16 +9,24 @@ class EditModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.user.id,
-            email: this.props.user.email,
-            firstName: this.props.user.firstName,
-            lastName: this.props.user.lastName,
-            phoneNumber: this.props.user.phoneNumber,
+            id: '',
+            email: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            userRedux: ''
         }
     }
 
 
     async componentDidMount() {
+        this.setState({
+            id: this.props.user.id,
+            email: this.props.user.email,
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            phoneNumber: this.props.user.phoneNumber,
+        })
 
 
     }
@@ -67,6 +75,7 @@ class EditModal extends Component {
 
             },
         ]
+        // console.log('this is user reudx', this.props.user.email);
 
         return (
             <>

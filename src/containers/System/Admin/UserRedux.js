@@ -15,6 +15,8 @@ class UserRedux extends Component {
             genderArr: [],
             positionArr: [],
             roleArr: [],
+            UsersRedux: [],
+            addUserSuccess: false,
             previewImgURL: '',
 
             email: '',
@@ -34,10 +36,10 @@ class UserRedux extends Component {
         this.props.changeLanguageAppRedux(language)
     }
     handleSaveUser = () => {
+        // alert('xin chao')
         let isValid = this.checkValidateInput()
         if (isValid === false) return;
         //fire redux action
-        // console.log('this is user', this.state.role, this.state.position);
         this.props.createNewUser({
             email: this.state.email,
             password: this.state.password,
@@ -49,8 +51,8 @@ class UserRedux extends Component {
             phoneNumber: this.state.phoneNumber,
             position: this.state.position,
         })
-        // this.props.fetchUserRedux();
-        // console.log('submit data', this.state);
+        this.props.fetchUserRedux();
+        console.log('add user', this.state.UsersRedux);
     }
     checkValidateInput = () => {
         let isvalid = true;
@@ -90,6 +92,11 @@ class UserRedux extends Component {
         this.props.getGenderStart();
         this.props.getPositionStart();
         this.props.getRoleStart();
+        //fire action khi render lan dau
+        this.props.fetchUserRedux();
+
+
+
     }
     componentDidUpdate(prevProbs, prevState, snapshot) {
         if (prevProbs.genderRedux !== this.props.genderRedux) {
@@ -115,6 +122,11 @@ class UserRedux extends Component {
                 role: arrRole && arrRole.length > 0 ? arrRole[0].key : ''
             })
         }
+        if (prevProbs.listUser !== this.props.listUser) {
+            this.setState({
+                UsersRedux: this.props.listUser,
+            })
+        }
     }
 
     render() {
@@ -122,6 +134,8 @@ class UserRedux extends Component {
         let genders = this.state.genderArr;
         let positions = this.state.positionArr;
         let roles = this.state.roleArr;
+        let listUser = this.state.UsersRedux;
+        // console.log('this is list user', this.state.UsersRedux);
         let { email, password, firstName, lastName, phoneNumber, address, gender, position, role, avatar } = this.state
         // console.log(' xin chao', this.props.positionRedux);
         return (
@@ -130,105 +144,106 @@ class UserRedux extends Component {
                     <div className='title'>Learn Redux  </div>
                     <div className='user-redux-body'>
                         <div className='container'>
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputEmail4"><FormattedMessage id="contentAdmin.email" /></label>
-                                        <input value={email} onChange={(e) => { this.onChangeInput(e, 'email') }} type="email" class="form-control" id="inputEmail4" placeholder="Email" />
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="inputPassword4"><FormattedMessage id="contentAdmin.password" /></label>
-                                        <input value={password} onChange={(e) => { this.onChangeInput(e, 'password') }} type="password" class="form-control" id="inputPassword4" placeholder="Password" />
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label ><FormattedMessage id="contentAdmin.firstName" /></label>
-                                        <input value={firstName} onChange={(e) => { this.onChangeInput(e, 'firstName') }} type="text" class="form-control" id="inputFirstName" />
-                                    </div>           <div class="form-group col-md-2">
-                                        <label ><FormattedMessage id="contentAdmin.lastName" /></label>
-                                        <input value={lastName} onChange={(e) => { this.onChangeInput(e, 'lastName') }} type="text" class="form-control" id="inputLastName" />
-                                    </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4"><FormattedMessage id="contentAdmin.email" /></label>
+                                    <input value={email} onChange={(e) => { this.onChangeInput(e, 'email') }} type="email" class="form-control" id="inputEmail4" placeholder="Email" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4"><FormattedMessage id="contentAdmin.password" /></label>
+                                    <input value={password} onChange={(e) => { this.onChangeInput(e, 'password') }} type="password" class="form-control" id="inputPassword4" placeholder="Password" />
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="inputZip"><FormattedMessage id="contentAdmin.phoneNumber" /></label>
-                                    <input value={phoneNumber} onChange={(e) => { this.onChangeInput(e, 'phoneNumber') }} type="text" class="form-control" id="inputPhoneNumber" />
+                                    <label ><FormattedMessage id="contentAdmin.firstName" /></label>
+                                    <input value={firstName} onChange={(e) => { this.onChangeInput(e, 'firstName') }} type="text" class="form-control" id="inputFirstName" />
+                                </div>           <div class="form-group col-md-2">
+                                    <label ><FormattedMessage id="contentAdmin.lastName" /></label>
+                                    <input value={lastName} onChange={(e) => { this.onChangeInput(e, 'lastName') }} type="text" class="form-control" id="inputLastName" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputZip"><FormattedMessage id="contentAdmin.phoneNumber" /></label>
+                                <input value={phoneNumber} onChange={(e) => { this.onChangeInput(e, 'phoneNumber') }} type="text" class="form-control" id="inputPhoneNumber" />
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label ><FormattedMessage id="contentAdmin.address" /></label>
+                                    <input value={address} onChange={(e) => { this.onChangeInput(e, 'address') }} type="text" class="form-control" id="inputAddress" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label ><FormattedMessage id="contentAdmin.gender" /></label>
+                                    <select onChange={(e) => { this.onChangeInput(e, 'gender') }} id="inputGender" class="form-control">
+                                        {genders && genders.length > 0 && genders.map((item, index) => {
+                                            return (
+                                                <>
+                                                    <option key={index} value={item.key}>
+                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                    </option>
+                                                </>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label ><FormattedMessage id="contentAdmin.position" /></label>
+                                    <select onChange={(e) => { this.onChangeInput(e, 'position') }} id="inputPosition" class="form-control">
+                                        {positions && positions.length > 0 && positions.map((item, index) => {
+                                            return (
+                                                <>
+                                                    <option key={index} value={item.key}>
+                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                    </option>
+                                                </>
+                                            )
+                                        })}
+                                    </select>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label ><FormattedMessage id="contentAdmin.address" /></label>
-                                        <input value={address} onChange={(e) => { this.onChangeInput(e, 'address') }} type="text" class="form-control" id="inputAddress" />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label ><FormattedMessage id="contentAdmin.gender" /></label>
-                                        <select onChange={(e) => { this.onChangeInput(e, 'gender') }} id="inputGender" class="form-control">
-                                            {genders && genders.length > 0 && genders.map((item, index) => {
-                                                return (
-                                                    <>
-                                                        <option key={index} value={item.key}>
-                                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                        </option>
-                                                    </>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label ><FormattedMessage id="contentAdmin.position" /></label>
-                                        <select onChange={(e) => { this.onChangeInput(e, 'position') }} id="inputPosition" class="form-control">
-                                            {positions && positions.length > 0 && positions.map((item, index) => {
-                                                return (
-                                                    <>
-                                                        <option key={index} value={item.key}>
-                                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                        </option>
-                                                    </>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-4">
-                                        <label ><FormattedMessage id="contentAdmin.roleId" /></label>
-                                        <select onChange={(e) => { this.onChangeInput(e, 'role') }} id="inputRoleID" class="form-control">
-                                            {roles && roles.length > 0 && roles.map((item, index) => {
-                                                return (
-                                                    <>
-                                                        <option key={index} value={item.key}>
-                                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                        </option>
-                                                    </>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label ><FormattedMessage id="contentAdmin.image" /></label>
-                                        <div className='preview-img-container'>
-                                            <input type="file"
-                                                onChange={(e) => { this.handleOnchangeImage(e) }}
-                                                class="form-control" id="previewImage" />
-                                            {/* <label className='label-upload' htmlFor='previewImage'>Tải ảnh <i className='fas fa-upload'></i></label> */}
-                                            {/* <div className='preview-image'
+                                <div class="form-group col-md-4">
+                                    <label ><FormattedMessage id="contentAdmin.roleId" /></label>
+                                    <select onChange={(e) => { this.onChangeInput(e, 'role') }} id="inputRoleID" class="form-control">
+                                        {roles && roles.length > 0 && roles.map((item, index) => {
+                                            return (
+                                                <>
+                                                    <option key={index} value={item.key}>
+                                                        {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                    </option>
+                                                </>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label ><FormattedMessage id="contentAdmin.image" /></label>
+                                    <div className='preview-img-container'>
+                                        <input type="file"
+                                            onChange={(e) => { this.handleOnchangeImage(e) }}
+                                            class="form-control" id="previewImage" />
+                                        {/* <label className='label-upload' htmlFor='previewImage'>Tải ảnh <i className='fas fa-upload'></i></label> */}
+                                        {/* <div className='preview-image'
                                                 style={{
                                                     backgroundImage: `url(${this.state.previewImgURL})`
                                                 }}
                                             ></div> */}
-                                        </div>
-
-                                        {/* <input type="text" class="form-control" id="inputImage" /> */}
                                     </div>
+
+                                    {/* <input type="text" class="form-control" id="inputImage" /> */}
                                 </div>
-                                <button
-                                    onClick={() => this.handleSaveUser()}
-                                    type="submit" class="btn btn-primary"><FormattedMessage id="contentAdmin.add" />
-                                    <style>
-                                        {`.btn { margin-top: 10px;width:100px;} `}
-                                    </style>
-                                </button>
-                                <div className=' mb-5'>
-                                    <TableManageUser />
-                                </div>
-                            </form>
+                            </div>
+                            <button
+                                onClick={() => this.handleSaveUser()}
+                                type="submit" class="btn btn-primary"><FormattedMessage id="contentAdmin.add" />
+                                <style>
+                                    {`.btn { margin-top: 10px;width:100px;} `}
+                                </style>
+                            </button>
+                            <div className='tableUser'>
+                                <TableManageUser
+                                    listUser={listUser}
+                                />
+                            </div>
+                            <div className='under'></div>
                         </div>
                     </div>
                 </div>
@@ -245,6 +260,7 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders,
         positionRedux: state.admin.position,
         roleRedux: state.admin.roles,
+        listUser: state.admin.users,
     };
 };
 
